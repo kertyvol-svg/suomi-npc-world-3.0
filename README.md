@@ -1,64 +1,87 @@
-# Suomi NPC World 3.0
+local ActiveCalls = {}
 
-Tämä repositorio on FiveM-QBCore-pohjainen kehitysalusta, jossa rakennetaan NPC-voimainen roolipeliympäristö suomalaisella tunnelmalla.
+local function getCurrentTime()
+  return os.date('%Y-%m-%d %H:%M:%S')
+end
 
-Tavoite on luoda toimiva ja skaalautuva perusta, jossa pelaaja toimii esimerkiksi poliisina ja koko kaupunki toimii NPC-voimaisesti.
+local function createCall(data)
+  local call = {
+    id = data.callId or ('call_' .. tostring(os.time()) .. '_' .. tostring(math.random(100, 999))),
+    type = data.type or 'disturbance',
+    severity = data.severity or 'medium',
+    location = data.location or 'Downtown',
+    suspectId = data.suspectId or nil,
+    suspectName = data.suspectName or 'Unknown suspect',
+    witnessIds = data.witnessIds or {},
+    vehiclePlate = data.vehiclePlate or 'UNKNOWN',
+    details = data.details or 'Unknown situation.',
+    district = data.district or 'downtown',
+    createdAt = data.createdAt or getCurrentTime(),
+    status = data.status or 'pending'
+  }
 
-## Projektin kehitysvaiheet
+  ActiveCalls[call.id] = call
 
-1. NPC Core
-   - NPC luonti
-   - state machine
-   - spawnaus
-   - perus registri
+  if Config.debug then
+    print(('[npc_dispatch] New call created: %s | %s | %s'):format(call.id, call.type, call.location))
+  end
 
-2. NPC Identity System
-   - henkilötiedot
-   - palkka, työ, koti, omistukset
-   - muistijälki
-   - suhdeverkko
+  TriggerClientEvent('npc_dispatch:client:callUpdated', -1, call)
 
-3. NPC Daily Life Engine
-   - työ -> koti -> kauppa -> vapaa-aika
-   - reititys ja aikataulut
-   - perus NPC-world simulointi
+  return call
+end
 
-4. NPC Crime Engine
-   - rikosgenerointi
-   - witnessit
-   - 112-puhelu
-   - dispatch-tehtävät
+local function getActiveCalls()
+  local list = {}
+  for _, call in pairs(ActiveCalls) do
+    table.insert(list, call)
+  end
+  return list
+end
 
-5. Police MDT / Dispatch
-   - kansalais-/ajoneuvorekisteri
-   - BOLO / warrant
-   - evidence
-   - case system
+local function acceptCall(callId, unitId)
+  if not ActiveCalls[callId] then
+    return nil
+  end
 
-## Kehitystilanne
+  ActiveCalls[callId].status = 'accepted'
+  ActiveCalls[callId].unitId = unitId or 'unit_unknown'
 
-Tällä hetkellä repositorioon on lisätty:
+  TriggerClientEvent('npc_dispatch:client:callUpdated', -1, ActiveCalls[callId])
 
-- NPC Core perusta
-- shared config
-- server-side NPC registration
-- SQL schema pohja
+  return ActiveCalls[callId]
+end
 
-Uusi kehitystaso rakentaa seuraavaksi:
+RegisterNetEvent('npc_dispatch:server:createCall', function(data)
+  createCall(data)
+end)
 
-- NPC Identity System
-- NPC Daily Life Engine
-- NPC state transitions
+RegisterNetEvent('npc_dispatch:server:acceptCall', function(callId, unitId)
+  acceptCall(callId, unitId)
+end)
 
-## Kansiorakenne
+RegisterNetEvent('npc_dispatch:server:requestCalls', function()
+  local src = source
+  TriggerClientEvent('npc_dispatch:client:receiveCalls', src, getActiveCalls())
+end)
 
-```text
-resources/
-  [core]/
-    npc_core/
-    npc_identity/
-    npc_daily_life/
-sql/
-  npc_core.sql
-README.md
-```
+exports('createCall', createCall)
+exports('acceptCall', acceptCall)
+exports('getActiveCalls', getActiveCalls)
+
+CreateThread(function()
+  Wait(1500)
+
+  TriggerEvent('npc_dispatch:server:createCall', {
+    callId = 'dispatch_demo_call_001',
+    type = 'armed_robbery',
+    severity = 'high',
+    location = 'Vespucci Blvd 24',
+    suspectName = 'Matti Virtanen',
+    witnessIds = {},
+    vehiclePlate = 'ABC-123',
+    details = 'Witness reported an armed suspect fleeing from the scene.',
+    district = 'downtown',
+    status = 'pending'
+  })
+end)
