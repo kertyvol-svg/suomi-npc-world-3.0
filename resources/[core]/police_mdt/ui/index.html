@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Police MDT Mockup</title>
+  <style>
+    :root {
+      --bg: #09161e;
+      --panel: #0f1e2b;
+      --panel-2: #142b39;
+      --line: #21455b;
+      --line-soft: #16354a;
+      --accent: #1cc0ff;
+      --accent-2: #8be0ff;
+      --green: #42d392;
+      --amber: #f7c65b;
+      --red: #ff5d73;
+      --text: #dfeef9;
+      --muted: #9cb7c5;
+      --dark: #091216;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #122937 0%, #09161e 55%, #050c11 100%);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+    }
+
+    .mdt {
+      width: 1280px;
+      height: 760px;
+      background: linear-gradient(180deg, rgba(7, 18, 25, 0.98), rgba(12, 27, 34, 0.98));
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.55), inset 0 0 18px rgba(28, 192, 255, 0.08);
+      display: grid;
+      grid-template-columns: 220px 1fr 400px;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, rgba(18, 36, 46, 0.9), rgba(11, 22, 31, 0.92));
+      border-right: 2px solid var(--line);
+      padding: 20px 14px;
+    }
+
+    .brand {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-item {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line-soft);
+      border-left: 4px solid transparent;
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .nav-item.active {
+      border-left-color: var(--accent);
+      background: rgba(28, 192, 255, 0.08);
+      box-shadow: inset 0 0 12px rgba(28, 192, 255, 0.08);
+    }
+
+    .nav-item .tag {
+      float: right;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(66, 211, 146, 0.12);
+      color: var(--green);
+    }
+
+    .content {
+      display: grid;
+      grid-template-rows: 86px 1fr;
+      border-right: 2px solid var(--line);
+    }
+
+    .topbar {
+      border-bottom: 2px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      background: rgba(14, 25, 34, 0.85);
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      width: 480px;
+      height: 42px;
+      padding: 0 12px;
+      color: var(--muted);
+    }
+
+    .search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(66, 211, 146, 0.8);
+    }
+
+    .main-panel {
+      padding: 18px 18px 0 18px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .stat .label {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .stat .value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 10px;
+      padding: 4px 8px;
+      color: var(--accent-2);
+      background: rgba(28, 192, 255, 0.06);
+    }
+
+    .person-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .avatar-box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      height: 230px;
+      background: linear-gradient(180deg, rgba(28, 192, 255, 0.08), rgba(255,255,255,0.02));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-box::before {
+      content: "";
+      position: absolute;
+      inset: 25px 50px 30px 50px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(41, 86, 107, 0.6));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .avatar-box::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 90px;
+      border-radius: 26px 26px 8px 8px;
+      background: rgba(16, 35, 46, 0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .person-info {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+
+    .info-block {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .info-block .k {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .info-block .v {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .right-column {
+      padding: 18px 16px;
+      background: rgba(9, 19, 25, 0.88);
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 12px 10px 12px;
+      margin-bottom: 12px;
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .vehicle-box {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, rgba(28,192,255,0.06), rgba(255,255,255,0.01));
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .badge.green {
+      background: rgba(66,211,146,0.12);
+      color: var(--green);
+      border: 1px solid rgba(66,211,146,0.35);
+    }
+
+    .badge.amber {
+      background: rgba(247,198,91,0.1);
+      color: var(--amber);
+      border: 1px solid rgba(247,198,91,0.35);
+    }
+
+    .badge.red {
+      background: rgba(255,93,115,0.1);
+      color: var(--red);
+      border: 1px solid rgba(255,93,115,0.35);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .list li {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,0.015);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .table th {
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .alert {
+      background: rgba(255, 93, 115, 0.08);
+      border: 1px solid rgba(255,93,115,0.25);
+      color: #ffb1bf;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="mdt">
+      <aside class="sidebar">
+        <div class="brand">PD / MDT</div>
+        <div class="nav">
+          <button class="nav-item active">Dashboard <span class="tag">Live</span></button>
+          <button class="nav-item">Person Search</button>
+          <button class="nav-item">Vehicle</button>
+          <button class="nav-item">Warrants</button>
+          <button class="nav-item">BOLO</button>
+          <button class="nav-item">Cases</button>
+          <button class="nav-item">Evidence</button>
+          <button class="nav-item">Dispatch</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div class="search">
+            <span style="margin-right:12px;color:var(--muted);">⌕</span>
+            <input value="Search person or vehicle..." />
+          </div>
+          <div class="status">
+            <div class="dot"></div>
+            <span>System Online</span>
+            <span style="color:var(--accent-2);">Unit 301</span>
+          </div>
+        </header>
+
+        <section class="main-panel">
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Active Calls</div>
+              <div class="value">12</div>
+            </div>
+            <div class="stat">
+              <div class="label">Warrants</div>
+              <div class="value">4</div>
+            </div>
+            <div class="stat">
+              <div class="label">BOLO</div>
+              <div class="value">7</div>
+            </div>
+            <div class="stat">
+              <div class="label">Cases</div>
+              <div class="value">31</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Subject Record</div>
+              <div class="chip">Priority Active</div>
+            </div>
+
+            <div class="person-grid">
+              <div class="avatar-box"></div>
+
+              <div class="person-info">
+                <div class="info-block"><div class="k">Name</div><div class="v">Matti Virtanen</div></div>
+                <div class="info-block"><div class="k">Age</div><div class="v">37</div></div>
+                <div class="info-block"><div class="k">Residence</div><div class="v">Palomino Ave 18</div></div>
+                <div class="info-block"><div class="k">Employer</div><div class="v">Auto Garage</div></div>
+                <div class="info-block"><div class="k">License</div><div class="v">Valid</div></div>
+                <div class="info-block"><div class="k">Status</div><div class="v">Investigation</div></div>
+                <div class="info-block"><div class="k">Last Seen</div><div class="v">Vespucci Blvd</div></div>
+                <div class="info-block"><div class="k">Phone</div><div class="v">050-440-1802</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="right-column">
+        <div class="mini-card">
+          <div class="label-row">
+            <span>Vehicle</span>
+            <span class="chip">ABC-123</span>
+          </div>
+          <div class="vehicle-box">
+            <strong>BMW 320i</strong><br>
+            2018 • Black<br>
+            Owner: Matti Virtanen
+          </div>
+          <div class="badge green">Registered</div>
+        </div>
+
+        <div class="mini-card">
+          <div class="label-row">
+            <span>Criminal History</span>
+            <span class="chip">2</span>
+          </div>
+          <ul class="list">
+            <li>Traffic Violation</li>
+            <li>Public Disturbance</li>
+          </ul>
+        </div>
+
+        <div class="mini-card">
+          <div class="label-row">
+            <span>Warrants</span>
+            <span class="chip">0</span>
+          </div>
+          <div class="badge amber">No active warrant</div>
+        </div>
+
+        <div class="mini-card">
+          <div class="label-row">
+            <span>Latest Events</span>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Event</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>21:43</td><td>Call received</td></tr>
+              <tr><td>21:48</td><td>Witness statement</td></tr>
+              <tr><td>21:51</td><td>Vehicle check</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert">Warning: suspect linked to armed robbery incident near Vespucci Blvd.</div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
