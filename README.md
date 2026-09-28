@@ -2,21 +2,53 @@
 
 Tämä repositorio on FiveM-QBCore-pohjainen kehitysalusta, jossa rakennetaan NPC-voimainen roolipeliympäristö suomalaisella tunnelmalla.
 
-Tavoite on luoda toimiva ja skaalautuva perusta, jossa pelaaja toimii esimerkiksi poliisina ja koko kaupunki toimii NPC-voimaisesti. Tämän projektin perusta on rakentaa ensin:
+Tavoite on luoda toimiva ja skaalautuva perusta, jossa pelaaja toimii esimerkiksi poliisina ja koko kaupunki toimii NPC-voimaisesti.
 
-- NPC Core
-- NPC identity + state system
-- NPC daily life + job system
-- NPC crime generation
-- Police MDT / Dispatch / Implements
-- evidencia, warrant ja BOLO-järjestelmät
+## Projektin kehitysvaiheet
 
-## Pääperiaatteet
+1. NPC Core
+   - NPC luonti
+   - state machine
+   - spawnaus
+   - perus registri
 
-1. Ei tarvitse tehdä kaikkea yhtä kertaa
-2. Rakennetaan modulaarisesti
-3. Jokainen järjestelmä toimii itsenäisesti
-4. Ajan myötä yhdistetään QBCore, MDT, dispatch ja NPC-world
+2. NPC Identity System
+   - henkilötiedot
+   - palkka, työ, koti, omistukset
+   - muistijälki
+   - suhdeverkko
+
+3. NPC Daily Life Engine
+   - työ -> koti -> kauppa -> vapaa-aika
+   - reititys ja aikataulut
+   - perus NPC-world simulointi
+
+4. NPC Crime Engine
+   - rikosgenerointi
+   - witnessit
+   - 112-puhelu
+   - dispatch-tehtävät
+
+5. Police MDT / Dispatch
+   - kansalais-/ajoneuvorekisteri
+   - BOLO / warrant
+   - evidence
+   - case system
+
+## Kehitystilanne
+
+Tällä hetkellä repositorioon on lisätty:
+
+- NPC Core perusta
+- shared config
+- server-side NPC registration
+- SQL schema pohja
+
+Uusi kehitystaso rakentaa seuraavaksi:
+
+- NPC Identity System
+- NPC Daily Life Engine
+- NPC state transitions
 
 ## Kansiorakenne
 
@@ -24,38 +56,9 @@ Tavoite on luoda toimiva ja skaalautuva perusta, jossa pelaaja toimii esimerkiks
 resources/
   [core]/
     npc_core/
-      client/
-      server/
-      shared/
-      fxmanifest.lua
+    npc_identity/
+    npc_daily_life/
 sql/
   npc_core.sql
 README.md
 ```
-
-## Ensimmäinen kehitysvaihe
-
-Tässä checkpointissä rakennetaan:
-
-- NPC Core resource
-- Perus-NPC spawn
-- NPC-tiedot
-- State system
-- Perusteet dispatchin yhdistämistä varten
-
-## Seuraavat askeleet
-
-1. NPC daily routine engine
-2. NPC identity and memory system
-3. Crime generation engine
-4. Police MDT integration
-5. Dispatch and 112 system
-6. Evidence & case management
-
-## Kehityksestä
-
-Projektia rakennetaan vaiheittain, jotta joka osa pysyy hallittavissa ja testattavissa.
-
----
-
-Tämä on alku. Seuraavaksi lisätään NPC daily routine, identity system ja state machine.
