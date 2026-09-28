@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Screen</title>
+  <link rel="stylesheet" href="booking-styles.css" />
+</head>
+<body>
+  <div id="booking-container" class="booking-container hidden">
+    <div class="booking-window">
+      <!-- Header -->
+      <div class="booking-header">
+        <h1>POLICE BOOKING SYSTEM</h1>
+        <div class="time-display" id="booking-time">21:43</div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="booking-content">
+        <!-- Left Panel: Subject Info -->
+        <div class="booking-left">
+          <div class="section-box">
+            <h2>SUBJECT INFORMATION</h2>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="label">NAME</span>
+                <span class="value" id="booking-name">--</span>
+              </div>
+              <div class="info-item">
+                <span class="label">AGE</span>
+                <span class="value" id="booking-age">--</span>
+              </div>
+              <div class="info-item">
+                <span class="label">DOB</span>
+                <span class="value" id="booking-dob">--</span>
+              </div>
+              <div class="info-item">
+                <span class="label">GENDER</span>
+                <span class="value" id="booking-gender">--</span>
+              </div>
+              <div class="info-item">
+                <span class="label">ADDRESS</span>
+                <span class="value" id="booking-address">--</span>
+              </div>
+              <div class="info-item">
+                <span class="label">PHONE</span>
+                <span class="value" id="booking-phone">--</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <h2>CHARGES</h2>
+            <div id="booking-charges" class="charges-list">
+              <div class="charge-item">Loading...</div>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <h2>ARRESTING OFFICER</h2>
+            <div class="info-grid">
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">BADGE / NAME</span>
+                <span class="value" id="booking-officer">--</span>
+              </div>
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">REASON FOR ARREST</span>
+                <span class="value" id="booking-reason">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Processing -->
+        <div class="booking-right">
+          <div class="section-box">
+            <h2>BOOKING DETAILS</h2>
+            <div class="info-grid">
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">BOOKING ID</span>
+                <span class="value" id="booking-id">--</span>
+              </div>
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">BOOKED AT</span>
+                <span class="value" id="booking-time-in">--</span>
+              </div>
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">ESTIMATED RELEASE</span>
+                <span class="value" id="booking-release-time">--</span>
+              </div>
+              <div class="info-item" style="grid-column: 1 / -1;">
+                <span class="label">DURATION</span>
+                <span class="value" id="booking-duration">--</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <h2>CUSTODY STATUS</h2>
+            <div class="status-display" id="custody-status">IN CUSTODY</div>
+            <div class="status-detail" id="status-detail">Subject is being held in police custody at the station.</div>
+          </div>
+
+          <div class="section-box">
+            <h2>ITEMS RECORDED</h2>
+            <div id="booking-items" class="items-list">
+              <div class="item-entry">Wallet</div>
+              <div class="item-entry">Phone</div>
+              <div class="item-entry">Keys</div>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button id="booking-confirm" class="btn btn-confirm">CONFIRM BOOKING</button>
+            <button id="booking-release" class="btn btn-release">RELEASE SUBJECT</button>
+            <button id="booking-close" class="btn btn-close">CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="booking.js"></script>
+</body>
+</html>
