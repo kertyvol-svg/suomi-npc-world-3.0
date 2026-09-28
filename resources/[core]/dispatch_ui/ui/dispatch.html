@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Police Dispatch</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="dispatch-container" class="dispatch-container hidden">
+    <!-- Left Panel: Active Calls -->
+    <div class="dispatch-left">
+      <div class="dispatch-header">
+        <h2>ACTIVE CALLS</h2>
+        <div class="call-counter" id="call-counter">0</div>
+      </div>
+
+      <div id="calls-list" class="calls-list">
+        <!-- Calls will be inserted here by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Center Panel: Map & Details -->
+    <div class="dispatch-center">
+      <div id="map-container" class="map-container">
+        <div class="map-placeholder">DISPATCH MAP</div>
+      </div>
+
+      <div id="call-details" class="call-details hidden">
+        <div class="details-header">
+          <button class="close-btn" id="close-details">×</button>
+          <h3 id="detail-title">Call Details</h3>
+        </div>
+        <div class="details-content">
+          <div class="detail-row">
+            <span class="label">LOCATION</span>
+            <span id="detail-location" class="value">--</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">TYPE</span>
+            <span id="detail-type" class="value">--</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">SEVERITY</span>
+            <span id="detail-severity" class="value">--</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">SUSPECT</span>
+            <span id="detail-suspect" class="value">--</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">VEHICLE</span>
+            <span id="detail-vehicle" class="value">--</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">DESCRIPTION</span>
+            <p id="detail-description" class="description">--</p>
+          </div>
+          <div class="detail-row">
+            <span class="label">WITNESSES</span>
+            <span id="detail-witnesses" class="value">--</span>
+          </div>
+          <div class="action-buttons">
+            <button id="accept-call-btn" class="btn btn-accept">ACCEPT CALL</button>
+            <button id="view-mdt-btn" class="btn btn-mdt">VIEW MDT</button>
+            <button id="navigate-btn" class="btn btn-navigate">NAVIGATE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Active Units -->
+    <div class="dispatch-right">
+      <div class="dispatch-header">
+        <h2>ACTIVE UNITS</h2>
+      </div>
+
+      <div id="units-list" class="units-list">
+        <!-- Units will be inserted here by JavaScript -->
+      </div>
+
+      <div class="dispatch-header" style="margin-top: 20px;">
+        <h2>YOUR STATUS</h2>
+      </div>
+
+      <div class="your-status">
+        <div class="status-item">
+          <span class="label">UNIT ID</span>
+          <span id="your-unit-id" class="value">301</span>
+        </div>
+        <div class="status-item">
+          <span class="label">STATUS</span>
+          <span id="your-status" class="value status-available">AVAILABLE</span>
+        </div>
+        <div class="status-buttons">
+          <button class="btn btn-small btn-available" id="status-available">AVAILABLE</button>
+          <button class="btn btn-small btn-busy" id="status-busy">BUSY</button>
+          <button class="btn btn-small btn-enroute" id="status-enroute">EN ROUTE</button>
+          <button class="btn btn-small btn-onscene" id="status-onscene">ON SCENE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dispatch.js"></script>
+</body>
+</html>
